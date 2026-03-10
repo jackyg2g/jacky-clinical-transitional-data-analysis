@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to IASO Biotherapeutics — Butantan Institute</title>
+
+    <!-- Fonts: Manrope — Electric Studio preset -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — ELECTRIC STUDIO LIGHT
+           White + bold blue accent strip + mint dot
+           =========================================== */
+        :root {
+            /* Core palette */
+            --bg-white: #ffffff;
+            --bg-off: #f7f8fb;
+            --bg-blue: #4361ee;
+            --bg-blue-dark: #3751d4;
+            --bg-blue-light: rgba(67, 97, 238, 0.06);
+            --text-dark: #0a0a0a;
+            --text-mid: #4a5568;
+            --text-light: #8594a7;
+            --text-white: #ffffff;
+            --accent-blue: #4361ee;
+            --accent-mint: #2dd4bf;
+            --accent-gold: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --border-subtle: rgba(10, 10, 10, 0.08);
+            --border-blue: rgba(67, 97, 238, 0.2);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
+
+            /* Typography — ALL clamp() */
+            --font-display: 'Manrope', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            --title-size: clamp(2.2rem, 5.5vw, 4.8rem);
+            --h2-size: clamp(1.4rem, 3.5vw, 2.8rem);
+            --h3-size: clamp(1rem, 2vw, 1.5rem);
+            --subtitle-size: clamp(0.82rem, 1.3vw, 1.05rem);
+            --body-size: clamp(0.73rem, 1.1vw, 0.92rem);
+            --small-size: clamp(0.6rem, 0.85vw, 0.76rem);
+            --stat-size: clamp(1.8rem, 4vw, 3.5rem);
+            --stat-label-size: clamp(0.55rem, 0.75vw, 0.68rem);
+
+            /* Spacing — ALL clamp() */
+            --slide-padding: clamp(1.5rem, 4.5vw, 5rem);
+            --content-gap: clamp(0.6rem, 1.6vw, 1.6rem);
+            --element-gap: clamp(0.25rem, 0.7vw, 0.7rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.6s;
+        }
+
+        /* ===========================================
+           BASE RESET
+           =========================================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-white);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           =========================================== */
+        html, body { height: 100%; overflow-x: hidden; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: var(--bg-white);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        .card, .container, .content-box {
+            max-width: min(90vw, 1100px);
+            max-height: min(80vh, 700px);
+        }
+        .feature-list, .bullet-list { gap: clamp(0.4rem, 1vh, 1rem); }
+        .feature-list li, .bullet-list li { font-size: var(--body-size); line-height: 1.4; }
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        /* Responsive breakpoints */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots, .keyboard-hint, .decorative { display: none; }
+            .blue-strip { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+        @media (max-width: 600px) {
+            :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+            .grid { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ===========================================
+           ANIMATIONS — Calm/Professional feel
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal:nth-child(1) { transition-delay: 0.08s; }
+        .reveal:nth-child(2) { transition-delay: 0.16s; }
+        .reveal:nth-child(3) { transition-delay: 0.24s; }
+        .reveal:nth-child(4) { transition-delay: 0.32s; }
+        .reveal:nth-child(5) { transition-delay: 0.40s; }
+        .reveal:nth-child(6) { transition-delay: 0.48s; }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.7s var(--ease-out-expo),
+                        transform 0.7s var(--ease-out-expo);
+        }
+        .slide.visible .reveal-left {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.8s var(--ease-out-expo),
+                        transform 0.8s var(--ease-out-expo);
+        }
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent-blue);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+
+        /* ===========================================
+           NAV DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(10px, 1.5vw, 20px);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1vh, 10px);
+            z-index: 9998;
+        }
+        .nav-dot {
+            width: clamp(6px, 0.5vw, 8px);
+            height: clamp(6px, 0.5vw, 8px);
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.15);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        .nav-dot.active {
+            background: var(--accent-blue);
+            transform: scale(1.4);
+        }
+
+        /* ===========================================
+           TOP BAR — Company name + slide number
+           =========================================== */
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(1rem, 2.5vw, 2rem) var(--slide-padding);
+            z-index: 10;
+        }
+        .top-bar .brand {
+            font-weight: 800;
+            font-size: var(--small-size);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-dark);
+        }
+        .top-bar .slide-num {
+            font-weight: 600;
+            font-size: var(--small-size);
+            color: var(--text-light);
+            letter-spacing: 0.08em;
+        }
+        /* Light variant for dark slides */
+        .slide-dark .top-bar .brand,
+        .slide-dark .top-bar .slide-num {
+            color: var(--text-white);
+        }
+
+        /* ===========================================
+           BLUE ACCENT STRIP (bottom bar)
+           =========================================== */
+        .blue-strip {
+            background: var(--bg-blue);
+            padding: clamp(0.8rem, 2vw, 1.5rem) var(--slide-padding);
+            color: var(--text-white);
+            font-size: var(--subtitle-size);
+            font-weight: 400;
+            line-height: 1.5;
+            flex-shrink: 0;
+        }
+        .blue-strip strong {
+            font-weight: 700;
+        }
+
+        /* ===========================================
+           SLIDE 1 — WELCOME (Split: text left + hero right)
+           =========================================== */
+        .title-slide {
+            flex-direction: row;
+        }
+        .title-slide .text-half {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--slide-padding);
+            padding-bottom: 0;
+            min-height: 0;
+        }
+        .title-slide .text-half h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 800;
+            line-height: 1.08;
+            color: var(--text-dark);
+            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+        }
+        .title-slide .text-half h1 .mint-dot {
+            display: inline-block;
+            width: clamp(8px, 1vw, 14px);
+            height: clamp(8px, 1vw, 14px);
+            background: var(--accent-mint);
+            border-radius: 50%;
+            margin-left: clamp(2px, 0.3vw, 4px);
+            vertical-align: baseline;
+            transform: translateY(clamp(-2px, -0.2vw, -4px));
+        }
+        .title-slide .image-half {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+        .title-slide .image-half img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            max-height: none;
+        }
+        .title-slide .title-strip {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            /* The strip spans the full width */
+        }
+        /* Make the strip full width by using a wrapper approach */
+        .title-slide-wrap {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        .title-slide-top {
+            flex: 1;
+            display: flex;
+            min-height: 0;
+        }
+
+        @media (max-width: 768px) {
+            .title-slide-top {
+                flex-direction: column;
+            }
+            .title-slide .image-half {
+                max-height: 35vh;
+            }
+        }
+
+        /* ===========================================
+           COMMON SECTION HEADER
+           =========================================== */
+        .section-tag {
+            font-size: var(--small-size);
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-blue);
+            margin-bottom: clamp(0.2rem, 0.4vw, 0.4rem);
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 800;
+            line-height: 1.12;
+            color: var(--text-dark);
+        }
+        .section-desc {
+            font-size: var(--subtitle-size);
+            color: var(--text-mid);
+            line-height: 1.55;
+            font-weight: 400;
+            max-width: 680px;
+        }
+
+        /* ===========================================
+           SLIDE 2 — AT A GLANCE
+           =========================================== */
+        .glance-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .glance-slide .two-col {
+            display: flex;
+            gap: clamp(1.5rem, 3vw, 3rem);
+            flex: 1;
+            min-height: 0;
+            align-items: center;
+        }
+        .glance-slide .col-left {
+            flex: 1.15;
+            display: flex;
+            flex-direction: column;
+            gap: var(--content-gap);
+        }
+        .glance-slide .col-right {
+            flex: 0.85;
+        }
+        .glance-slide .col-right img {
+            width: 100%;
+            max-height: min(55vh, 450px);
+            object-fit: cover;
+            border-radius: clamp(8px, 1vw, 14px);
+            box-shadow: var(--shadow-lg);
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.5rem, 1vw, 1rem);
+        }
+        .stat-card {
+            background: var(--bg-off);
+            border: 1px solid var(--border-subtle);
+            border-radius: clamp(6px, 0.6vw, 10px);
+            padding: clamp(0.5rem, 1vw, 1rem);
+            text-align: center;
+        }
+        .stat-card .num {
+            font-family: var(--font-display);
+            font-size: var(--stat-size);
+            font-weight: 800;
+            color: var(--accent-blue);
+            line-height: 1.1;
+        }
+        .stat-card .num.gold { color: var(--accent-gold); }
+        .stat-card .num.mint { color: var(--accent-mint); }
+        .stat-card .label {
+            font-size: var(--stat-label-size);
+            color: var(--text-light);
+            margin-top: clamp(0.1rem, 0.2vw, 0.2rem);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+            .glance-slide .two-col { flex-direction: column; }
+            .glance-slide .col-right { display: none; }
+        }
+
+        /* ===========================================
+           SLIDE 3 — EQUE-CEL (split layout)
+           =========================================== */
+        .equecel-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .equecel-slide .two-col {
+            display: flex;
+            gap: clamp(1.5rem, 3vw, 3rem);
+            flex: 1;
+            min-height: 0;
+            align-items: center;
+        }
+        .equecel-slide .col-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+        }
+        .equecel-slide .col-img {
+            flex: 0.9;
+        }
+        .equecel-slide .col-img img {
+            width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+            border-radius: clamp(8px, 1vw, 14px);
+            box-shadow: var(--shadow-md);
+            background: var(--bg-off);
+            padding: clamp(0.3rem, 0.5vw, 0.5rem);
+        }
+        .pill-row {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.25rem, 0.5vw, 0.5rem);
+        }
+        .info-pill {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.4rem, 0.7vw, 0.7rem);
+            padding: clamp(0.3rem, 0.6vw, 0.6rem) clamp(0.5rem, 0.8vw, 0.8rem);
+            background: var(--bg-off);
+            border: 1px solid var(--border-subtle);
+            border-radius: clamp(6px, 0.6vw, 8px);
+            font-size: var(--body-size);
+            color: var(--text-mid);
+            line-height: 1.4;
+        }
+        .info-pill .icon {
+            font-size: clamp(0.75rem, 1vw, 0.95rem);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .info-pill strong {
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+        .info-pill .blue { color: var(--accent-blue); font-weight: 700; }
+
+        @media (max-width: 768px) {
+            .equecel-slide .two-col { flex-direction: column; }
+            .equecel-slide .col-img { max-height: 28vh; }
+        }
+
+        /* ===========================================
+           SLIDE 4 — CLINICAL DATA TABLE
+           =========================================== */
+        .clinical-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .table-wrap {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: var(--body-size);
+        }
+        .data-table thead th {
+            font-weight: 700;
+            font-size: var(--small-size);
+            color: var(--text-light);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: clamp(0.3rem, 0.6vw, 0.6rem) clamp(0.4rem, 0.8vw, 0.8rem);
+            border-bottom: 2px solid var(--text-dark);
+            text-align: center;
+            white-space: nowrap;
+        }
+        .data-table thead th:first-child { text-align: left; }
+        .data-table thead th.hl {
+            background: var(--bg-blue-light);
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+        .data-table tbody td {
+            padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.4rem, 0.8vw, 0.8rem);
+            border-bottom: 1px solid var(--border-subtle);
+            text-align: center;
+            color: var(--text-mid);
+        }
+        .data-table tbody td:first-child {
+            text-align: left;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        .data-table tbody td.hl {
+            background: var(--bg-blue-light);
+            color: var(--accent-blue);
+            font-weight: 800;
+        }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+        .best-tag {
+            display: inline-block;
+            background: var(--accent-green);
+            color: #fff;
+            font-size: clamp(0.45rem, 0.55vw, 0.55rem);
+            font-weight: 800;
+            padding: 1px 5px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-left: 3px;
+            vertical-align: middle;
+        }
+        .table-note {
+            font-size: var(--small-size);
+            color: var(--text-light);
+            margin-top: clamp(0.3rem, 0.5vw, 0.5rem);
+            font-style: italic;
+        }
+
+        /* ===========================================
+           SLIDE 5 — TECHNOLOGY PLATFORMS
+           =========================================== */
+        .platforms-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .plat-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: clamp(0.4rem, 0.8vw, 0.8rem);
+            flex: 1;
+            min-height: 0;
+            align-items: start;
+        }
+        .plat-card {
+            background: var(--bg-off);
+            border: 1px solid var(--border-subtle);
+            border-radius: clamp(6px, 0.8vw, 10px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .plat-card:hover {
+            border-color: var(--border-blue);
+            box-shadow: var(--shadow-md);
+        }
+        .plat-card .card-img {
+            width: 100%;
+            max-height: min(16vh, 130px);
+            object-fit: cover;
+        }
+        .plat-card .card-body {
+            padding: clamp(0.4rem, 0.7vw, 0.7rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.15rem, 0.25vw, 0.25rem);
+        }
+        .plat-card .card-num {
+            font-weight: 800;
+            font-size: var(--small-size);
+            color: var(--accent-blue);
+        }
+        .plat-card .card-title {
+            font-weight: 800;
+            font-size: clamp(0.55rem, 0.78vw, 0.72rem);
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+        .plat-card .card-desc {
+            font-size: clamp(0.48rem, 0.65vw, 0.62rem);
+            color: var(--text-mid);
+            line-height: 1.35;
+        }
+        @media (max-width: 900px) { .plat-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .plat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* ===========================================
+           SLIDE 6 — MANUFACTURING
+           =========================================== */
+        .mfg-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .mfg-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.5rem, 1vw, 1rem);
+            flex: 1;
+            min-height: 0;
+        }
+        .mfg-card {
+            background: var(--bg-off);
+            border: 1px solid var(--border-subtle);
+            border-radius: clamp(6px, 0.8vw, 10px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s ease;
+        }
+        .mfg-card:hover { box-shadow: var(--shadow-md); }
+        .mfg-card .photo {
+            width: 100%;
+            height: min(20vh, 160px);
+            object-fit: cover;
+            max-height: none;
+        }
+        .mfg-card .body {
+            padding: clamp(0.4rem, 0.7vw, 0.7rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.1rem, 0.2vw, 0.2rem);
+        }
+        .mfg-card .loc {
+            font-weight: 800;
+            font-size: clamp(0.6rem, 0.8vw, 0.74rem);
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+        .mfg-card .det {
+            font-size: clamp(0.5rem, 0.65vw, 0.62rem);
+            color: var(--text-mid);
+            line-height: 1.35;
+        }
+        @media (max-width: 768px) { .mfg-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* ===========================================
+           SLIDE 7 — GLOBAL VISION (split)
+           =========================================== */
+        .global-slide .slide-content { gap: var(--content-gap); }
+        .global-slide .two-col {
+            display: flex;
+            gap: clamp(1.5rem, 3vw, 3rem);
+            flex: 1;
+            min-height: 0;
+            align-items: center;
+        }
+        .global-slide .col-text {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1vw, 1rem);
+        }
+        .global-slide .col-map {
+            flex: 0.8;
+        }
+        .global-slide .col-map img {
+            width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+            border-radius: clamp(6px, 0.8vw, 10px);
+            box-shadow: var(--shadow-md);
+            background: var(--bg-off);
+            padding: clamp(0.2rem, 0.3vw, 0.3rem);
+        }
+        .strat-item {
+            display: flex;
+            gap: clamp(0.5rem, 0.8vw, 0.8rem);
+            align-items: flex-start;
+        }
+        .strat-icon {
+            width: clamp(30px, 3vw, 38px);
+            height: clamp(30px, 3vw, 38px);
+            border-radius: clamp(6px, 0.5vw, 8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+            flex-shrink: 0;
+        }
+        .strat-icon.blue { background: var(--bg-blue-light); }
+        .strat-icon.mint { background: rgba(45, 212, 191, 0.1); }
+        .strat-icon.gold { background: rgba(245, 158, 11, 0.1); }
+        .strat-text h4 {
+            font-weight: 800;
+            font-size: var(--body-size);
+            color: var(--text-dark);
+        }
+        .strat-text p {
+            font-size: var(--small-size);
+            color: var(--text-mid);
+            line-height: 1.45;
+        }
+        .strat-text .accent { color: var(--accent-blue); font-weight: 700; }
+        @media (max-width: 768px) {
+            .global-slide .two-col { flex-direction: column-reverse; }
+            .global-slide .col-map { max-height: 25vh; }
+        }
+
+        /* ===========================================
+           SLIDE 8 — PARTNERS
+           =========================================== */
+        .partners-slide .slide-content { gap: var(--content-gap); }
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.5rem, 1vw, 1rem);
+            flex: 1;
+            min-height: 0;
+            align-content: center;
+        }
+        .p-card {
+            background: var(--bg-off);
+            border: 1px solid var(--border-subtle);
+            border-radius: clamp(6px, 0.6vw, 8px);
+            padding: clamp(0.5rem, 0.8vw, 0.8rem);
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 0.8vw, 0.8rem);
+            transition: box-shadow 0.3s ease;
+        }
+        .p-card:hover { box-shadow: var(--shadow-md); }
+        .p-card .p-logo {
+            width: clamp(36px, 4.5vw, 54px);
+            height: clamp(36px, 4.5vw, 54px);
+            object-fit: contain;
+            border-radius: clamp(4px, 0.4vw, 6px);
+            background: #fff;
+            padding: 3px;
+            border: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+        .p-card .p-info h4 {
+            font-weight: 800;
+            font-size: clamp(0.6rem, 0.8vw, 0.74rem);
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+        .p-card .p-info p {
+            font-size: clamp(0.48rem, 0.63vw, 0.6rem);
+            color: var(--text-mid);
+            line-height: 1.35;
+            margin-top: clamp(0.08rem, 0.15vw, 0.15rem);
+        }
+        @media (max-width: 768px) { .partner-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* ===========================================
+           SLIDE 9 — CLOSING (full blue)
+           =========================================== */
+        .closing-slide {
+            background: var(--bg-blue);
+            color: var(--text-white);
+        }
+        .closing-slide .slide-content {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: var(--content-gap);
+        }
+        .closing-slide .hero-img {
+            width: min(65vw, 550px);
+            max-height: min(24vh, 190px);
+            object-fit: cover;
+            border-radius: clamp(8px, 1vw, 14px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+            opacity: 0.85;
+        }
+        .closing-slide h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 800;
+            color: var(--text-white);
+        }
+        .closing-items {
+            display: flex;
+            gap: clamp(1.5rem, 4vw, 4rem);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .c-item {
+            text-align: center;
+            max-width: clamp(100px, 14vw, 160px);
+        }
+        .c-item .c-icon {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);
+        }
+        .c-item h4 {
+            font-weight: 800;
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255,255,255,0.9);
+        }
+        .c-item p {
+            font-size: var(--small-size);
+            color: rgba(255,255,255,0.65);
+            line-height: 1.4;
+            margin-top: clamp(0.05rem, 0.1vw, 0.1rem);
+        }
+        .closing-tagline {
+            font-size: var(--subtitle-size);
+            color: rgba(255,255,255,0.55);
+            font-style: italic;
+            font-weight: 400;
+        }
+        .closing-slide .mint-line {
+            width: clamp(40px, 5vw, 60px);
+            height: 3px;
+            background: var(--accent-mint);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    <!-- Nav dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+
+    <!-- ===========================================
+         SLIDE 1 — WELCOME (Split hero layout)
+         =========================================== -->
+    <section class="slide title-slide" data-slide="0">
+        <div class="title-slide-wrap">
+            <div class="title-slide-top">
+                <!-- Left: text -->
+                <div class="text-half">
+                    <div class="top-bar" style="position:relative; padding-left:0; padding-right:0;">
+                        <span class="brand">IASO BIOTHERAPEUTICS</span>
+                        <span class="slide-num">01 / 09</span>
+                    </div>
+                    <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; padding-bottom:clamp(1.5rem,3vw,3rem);">
+                        <h1 class="reveal-left">Welcome to<br>IASO Biotherapeutics<span class="mint-dot"></span></h1>
+                    </div>
+                </div>
+                <!-- Right: hero image -->
+                <div class="image-half reveal-scale">
+                    <img
+                        src="https://en.iasobio.com/uploads/2021-07/10/_1625885420_8543.jpg"
+                        alt="IASO Biotherapeutics — laboratory research and innovation"
+                        loading="eager"
+                    >
+                </div>
+            </div>
+            <!-- Blue strip at bottom -->
+            <div class="blue-strip reveal">
+                Pioneering curative cell and gene therapies. Honored to welcome
+                <strong>Butantan Institute</strong> to Nanjing.
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 2 — IASO AT A GLANCE
+         =========================================== -->
+    <section class="slide glance-slide" data-slide="1">
+        <div class="top-bar">
+            <span class="brand">IASO BIOTHERAPEUTICS</span>
+            <span class="slide-num">02 / 09</span>
+        </div>
+        <div class="slide-content">
+            <div class="reveal">
+                <div class="section-tag">Company Overview</div>
+                <h2 class="section-title">IASO at a Glance</h2>
+            </div>
+            <div class="two-col">
+                <div class="col-left">
+                    <div class="stats-row reveal">
+                        <div class="stat-card">
+                            <div class="num">600+</div>
+                            <div class="label">Patients<br>Treated</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="num gold">~70%</div>
+                            <div class="label">China MM CAR-T<br>Market Share</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="num">10</div>
+                            <div class="label">Products &<br>Candidates</div>
+                        </div>
+                    </div>
+                    <div class="stats-row reveal">
+                        <div class="stat-card">
+                            <div class="num mint">5</div>
+                            <div class="label">Technology<br>Platforms</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="num">27+</div>
+                            <div class="label">Clinical Trial<br>Centers</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="num">4</div>
+                            <div class="label">Global R&D &<br>Mfg Sites</div>
+                        </div>
+                    </div>
+                    <p class="section-desc reveal" style="font-size:var(--small-size);">
+                        Founded 2017. One of the few commercial-stage ATMP companies bringing China's breakthrough CAR-T innovations to the global market. End-to-end: antibody discovery to GMP manufacturing to commercialization.
+                    </p>
+                </div>
+                <div class="col-right reveal-scale">
+                    <img
+                        src="https://en.iasobio.com/uploads/2025-11/24/_1763951518_6300.jpg"
+                        alt="IASO Bio integrated capabilities — Pipeline, Technology Platform, Manufacturing"
+                        loading="lazy"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 3 — EQUE-CEL INNOVATION
+         =========================================== -->
+    <section class="slide equecel-slide" data-slide="2">
+        <div class="top-bar">
+            <span class="brand">IASO BIOTHERAPEUTICS</span>
+            <span class="slide-num">03 / 09</span>
+        </div>
+        <div class="slide-content">
+            <div class="reveal">
+                <div class="section-tag">Core Product</div>
+                <h2 class="section-title">Eque-cel (Fucaso&reg;) &mdash; Proven Innovation</h2>
+            </div>
+            <div class="two-col">
+                <div class="col-text">
+                    <div class="pill-row">
+                        <div class="info-pill reveal">
+                            <span class="icon">🧬</span>
+                            <span>World's first <strong>fully human BCMA CAR-T</strong> cell therapy</span>
+                        </div>
+                        <div class="info-pill reveal">
+                            <span class="icon">✅</span>
+                            <span>Approved in China (Jun 2023), Hong Kong &amp; Macau for <strong>r/r Multiple Myeloma</strong></span>
+                        </div>
+                        <div class="info-pill reveal">
+                            <span class="icon">📊</span>
+                            <span><span class="blue">ORR 98.9%</span> &bull; CR/sCR 88.4% &bull; MRD negativity 98.9%</span>
+                        </div>
+                        <div class="info-pill reveal">
+                            <span class="icon">🛡️</span>
+                            <span>Superior safety: Grade 3+ CRS <span class="blue">only 1.0%</span>, zero neurotoxicity</span>
+                        </div>
+                        <div class="info-pill reveal">
+                            <span class="icon">🔬</span>
+                            <span>Expanding into <strong>autoimmune diseases</strong>: MG, MS, SLE/LN</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-img reveal-scale">
+                    <img
+                        src="https://en.iasobio.com/uploads/2025-11/26/_1764138317_1995.jpg"
+                        alt="IASO Fully Human Antibody Discovery Platform"
+                        loading="lazy"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 4 — CLINICAL DATA TABLE
+         =========================================== -->
+    <section class="slide clinical-slide" data-slide="3">
+        <div class="top-bar">
+            <span class="brand">IASO BIOTHERAPEUTICS</span>
+            <span class="slide-num">04 / 09</span>
+        </div>
+        <div class="slide-content">
+            <div class="reveal">
+                <div class="section-tag">Clinical Evidence</div>
+                <h2 class="section-title">Best-in-Class Clinical Results</h2>
+                <p class="section-desc">Comparison with approved BCMA CAR-T therapies across key efficacy and safety endpoints.</p>
+            </div>
+            <div class="table-wrap reveal">
+                <div style="width:100%;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Endpoint</th>
+                                <th class="hl">Fucaso&reg; (Eque-cel)<br><span style="font-weight:400;">N=97</span></th>
+                                <th>Abecma&reg;<br><span style="font-weight:400;">N=128</span></th>
+                                <th>Carvykti&reg;<br><span style="font-weight:400;">N=97</span></th>
+                                <th>Zevor-cel*<br><span style="font-weight:400;">N=102</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Overall Response Rate</td>
+                                <td class="hl">98.9% <span class="best-tag">Best</span></td>
+                                <td>73%</td>
+                                <td>97.9%</td>
+                                <td>92.2%</td>
+                            </tr>
+                            <tr>
+                                <td>&ge; Complete Response</td>
+                                <td class="hl">88.4% <span class="best-tag">Best</span></td>
+                                <td>33%</td>
+                                <td>82.5%</td>
+                                <td>71.6%</td>
+                            </tr>
+                            <tr>
+                                <td>Median PFS (months)</td>
+                                <td class="hl">35.9 <span class="best-tag">Best</span></td>
+                                <td>8.8</td>
+                                <td>34.9</td>
+                                <td>/</td>
+                            </tr>
+                            <tr>
+                                <td>12-Month PFS</td>
+                                <td class="hl">85.5% <span class="best-tag">Best</span></td>
+                                <td>/</td>
+                                <td>/</td>
+                                <td>76.3%</td>
+                            </tr>
+                            <tr>
+                                <td>&ge; Grade 3 CRS</td>
+                                <td class="hl">1.0% <span class="best-tag">Best</span></td>
+                                <td>5.5%</td>
+                                <td>5.1%</td>
+                                <td>6.9%</td>
+                            </tr>
+                            <tr>
+                                <td>Neurotoxicity (incl. ICANS)</td>
+                                <td class="hl">0%</td>
+                                <td>4%</td>
+                                <td>11%</td>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <td>MDS / AML</td>
+                                <td class="hl">0%</td>
+                                <td>2/137</td>
+                                <td>7/97</td>
+                                <td>0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="table-note">* Zevor-cel approved in China (Feb 2024). Cross-trial comparison for reference only. Fucaso data: CAR-T naive patients from pivotal trial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 5 — TECHNOLOGY PLATFORMS
+         =========================================== -->
+    <section class="slide platforms-slide" data-slide="4">
+        <div class="top-bar">
+            <span class="brand">IASO BIOTHERAPEUTICS</span>
+            <span class="slide-num">05 / 09</span>
+        </div>
+        <div class="slide-content">
+            <div class="reveal">
+                <div class="section-tag">Innovation Engine</div>
+                <h2 class="section-title">Five Integrated Technology Platforms</h2>
+            </div>
+            <div class="plat-grid reveal">
+                <div class="plat-card">
+                    <img src="https://en.iasobio.com/uploads/2025-11/26/_1764138317_1995.jpg" alt="Fully Human Antibody Discovery Platform" class="card-img" loading="lazy">
+                    <div class="card-body">
+                        <span class="card-num">01</span>
+                        <h4 class="card-title">Fully Human Antibody Discovery</h4>
+                        <p class="card-desc">240+ billion antibody library. 20 R&D programs initiated, 4 advancing to clinical stages.</p>
+                    </div>
+                </div>
+                <div class="plat-card">
+                    <img src="https://en.iasobio.com/uploads/2021-07/12/_1626099568_6348.jpg" alt="High-Throughput CAR-T Screening Platform" class="card-img" loading="lazy">
+                    <div class="card-body">
+                        <span class="card-num">02</span>
+                        <h4 class="card-title">High-Throughput CAR-T Screening</h4>
+                        <p class="card-desc">Single-cell analysis + NGS for rapid lead identification and functional evaluation.</p>
+                    </div>
+                </div>
+                <div class="plat-card">
+                    <img src="https://en.iasobio.com/uploads/2025-11/21/_1763733291_1647.png" alt="In Vivo CAR-T Platform" class="card-img" loading="lazy">
+                    <div class="card-body">
+                        <span class="card-num">03</span>
+                        <h4 class="card-title">In Vivo CAR-T Platform</h4>
+                        <p class="card-desc">Next-gen: generate CAR-T cells directly in the patient. Enhanced targeting and immune evasion.</p>
+                    </div>
+                </div>
+                <div class="plat-card">
+                    <img src="https://en.iasobio.com/uploads/2025-11/21/_1763734333_3971.jpg" alt="Advanced Manufacturing and CMC Platform" class="card-img" loading="lazy">
+                    <div class="card-body">
+                        <span class="card-num">04</span>
+                        <h4 class="card-title">Advanced Manufacturing & CMC</h4>
+                        <p class="card-desc">End-to-end GMP production. FAST CAR-T platform. 500+ patient capacity/year.</p>
+                    </div>
+                </div>
+                <div class="plat-card">
+                    <img src="https://en.iasobio.com/uploads/2025-09/28/_1759055816_6870.jpg" alt="Clinical Development and Translational Research" class="card-img" loading="lazy">
+                    <div class="card-body">
+                        <span class="card-num">05</span>
+                        <h4 class="card-title">Clinical Development & Translational Research</h4>
+                        <p class="card-desc">Joint labs with leading hospitals. Novel targets. Efficient bench-to-bedside bridging.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 6 — MANUFACTURING
+         =========================================== -->
+    <section class="slide mfg-slide" data-slide="5">
+        <div class="top-bar">
+            <span class="brand">IASO BIOTHERAPEUTICS</span>
+            <span class="slide-num">06 / 09</span>
+        </div>
+        <div class="slide-content">
+            <div class="reveal">
+                <div class="section-tag">Manufacturing</div>
+                <h2 class="section-title">Four Global R&D & Manufacturing Sites</h2>
+                <p class="section-desc">Mature CMC platform enabling <strong>large-scale, high-quality production</strong> — from plasmid to lentiviral vector to final CAR-T product.</p>
+            </div>
+            <div class="mfg-grid reveal">
+                <div class="mfg-card">
+                    <img src="https://en.iasobio.com/uploads/2025-07/02/_1751387252_4567.jpg" alt="Global R&D Center, Shanghai" class="photo" loading="lazy">
+                    <div class="body">
+                        <h4 class="loc">Global R&D Center<br>Shanghai</h4>
+                        <p class="det">32,306 m&sup2; in Waigaoqiao Free Trade Zone. Cell & gene therapy and antibody drug R&D.</p>
+                    </div>
+                </div>
+                <div class="mfg-card">
+                    <img src="https://en.iasobio.com/uploads/2026-01/09/_1767929422_5285.jpg" alt="GMP Manufacturing Site, Nanjing" class="photo" loading="lazy">
+                    <div class="body">
+                        <h4 class="loc">GMP Manufacturing<br>Nanjing</h4>
+                        <p class="det">7,866 m&sup2;. Full-cycle: plasmid, viral vector, CAR-T cells. Licensed since Feb 2022.</p>
+                    </div>
+                </div>
+                <div class="mfg-card">
+                    <img src="https://en.iasobio.com/uploads/2025-09/23/_1758618540_5736.jpg" alt="R&D Center, Pleasanton CA, USA" class="photo" loading="lazy">
+                    <div class="body">
+                        <h4 class="loc">R&D Center<br>United States</h4>
+                        <p class="det">Pleasanton, California. Operational since 2021. US-China R&D synergy.</p>
+                    </div>
+                </div>
+                <div class="mfg-card">
+                    <img src="https://en.iasobio.com/uploads/2025-07/02/_1751387265_4027.jpg" alt="Research & Clinical Manufacturing, Nanjing" class="photo" loading="lazy">
+                    <div class="body">
+                        <h4 class="loc">Research & Clinical Mfg<br>Nanjing</h4>
+                        <p class="det">Early-stage R&D and clinical-scale manufacturing. Supports pipeline expansion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 7 — GLOBAL VISION
+         =========================================== -->
+    <section class="slide global-slide" data-slide="6">
+        <div class="top-bar">
+            <span class="brand">IASO BIOTHERAPEUTICS</span>
+            <span class="slide-num">07 / 09</span>
+        </div>
+        <div class="slide-content">
+            <div class="reveal">
+                <div class="section-tag">Global Strategy</div>
+                <h2 class="section-title">"Products Out, Patients In"</h2>
+            </div>
+            <div class="two-col">
+                <div class="col-text">
+                    <div class="strat-item reveal">
+                        <div class="strat-icon blue">🌍</div>
+                        <div class="strat-text">
+                            <h4>Products Out — Global Registration</h4>
+                            <p>Direct registration in 7+ markets. BLA approved: Hong Kong &amp; Macau. Accepted: Singapore. CTN: Japan. Orphan Drug: Korea &amp; Saudi Arabia. <span class="accent">Bridging studies planned for Japan &amp; Brazil.</span></p>
+                        </div>
+                    </div>
+                    <div class="strat-item reveal">
+                        <div class="strat-icon mint">🏥</div>
+                        <div class="strat-text">
+                            <h4>Patients In — Cross-Border Access</h4>
+                            <p>International patients access Fucaso in China via named-patient programs. First cross-border supply achieved Dec 2024.</p>
+                        </div>
+                    </div>
+                    <div class="strat-item reveal">
+                        <div class="strat-icon gold">🤝</div>
+                        <div class="strat-text">
+                            <h4>"China Solution" for Global Partners</h4>
+                            <p>Exportable model: process development, technology transfer, GMP manufacturing support. Not just products — a <span class="accent">technology partnership</span>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-map reveal-scale">
+                    <img
+                        src="butantan-deck-assets/slide_global_map.png"
+                        alt="IASO Bio global clinical development and registration map showing approved and planned markets worldwide"
+                        loading="lazy"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 8 — PARTNERS
+         =========================================== -->
+    <section class="slide partners-slide" data-slide="7">
+        <div class="top-bar">
+            <span class="brand">IASO BIOTHERAPEUTICS</span>
+            <span class="slide-num">08 / 09</span>
+        </div>
+        <div class="slide-content">
+            <div class="reveal">
+                <div class="section-tag">Collaborations</div>
+                <h2 class="section-title">Global Partnership Network</h2>
+                <p class="section-desc">Strategic collaborations with leading biotech, pharma companies, and top-tier hospitals.</p>
+            </div>
+            <div class="partner-grid reveal">
+                <div class="p-card">
+                    <img src="https://en.iasobio.com/uploads/2021-07/12/_1626097981_5703.png" alt="Innovent Biologics" class="p-logo" loading="lazy">
+                    <div class="p-info">
+                        <h4>Innovent Biologics</h4>
+                        <p>Joint BCMA CAR-T development. Strategic shareholder since Jul 2024.</p>
+                    </div>
+                </div>
+                <div class="p-card">
+                    <img src="https://en.iasobio.com/uploads/2022-06/17/_1655446824_4410.png" alt="Sana Biotechnology" class="p-logo" loading="lazy">
+                    <div class="p-info">
+                        <h4>Sana Biotechnology</h4>
+                        <p>Non-exclusive BCMA CAR construct license. Engineered cells as medicines.</p>
+                    </div>
+                </div>
+                <div class="p-card">
+                    <img src="https://en.iasobio.com/uploads/2022-12/06/_1670307621_1592.jpg" alt="Cabaletta Bio" class="p-logo" loading="lazy">
+                    <div class="p-info">
+                        <h4>Cabaletta Bio</h4>
+                        <p>Exclusive worldwide CD19 binder license. Autoimmune disease focus.</p>
+                    </div>
+                </div>
+                <div class="p-card">
+                    <img src="https://en.iasobio.com/uploads/2025-11/19/_1763542996_2067.jpg" alt="GC Cell" class="p-logo" loading="lazy">
+                    <div class="p-info">
+                        <h4>GC Cell (Korea)</h4>
+                        <p>Exclusive Fucaso license in South Korea for multiple myeloma.</p>
+                    </div>
+                </div>
+                <div class="p-card">
+                    <img src="https://en.iasobio.com/uploads/2022-12/06/_1670307848_7790.png" alt="Umoja Biopharma" class="p-logo" loading="lazy">
+                    <div class="p-info">
+                        <h4>Umoja Biopharma</h4>
+                        <p>Off-the-shelf therapy collaboration for hematological malignancies.</p>
+                    </div>
+                </div>
+                <div class="p-card">
+                    <img src="https://en.iasobio.com/uploads/2021-07/12/_1626098859_5840.jpg" alt="Tongji Hospital" class="p-logo" loading="lazy">
+                    <div class="p-info">
+                        <h4>Tongji Hospital</h4>
+                        <p>Joint IIT and registration clinical studies on multiple cell therapies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 9 — CLOSING (Full blue background)
+         =========================================== -->
+    <section class="slide closing-slide slide-dark" data-slide="8">
+        <div class="top-bar">
+            <span class="brand">IASO BIOTHERAPEUTICS</span>
+            <span class="slide-num">09 / 09</span>
+        </div>
+        <div class="slide-content">
+            <img
+                src="https://en.iasobio.com/uploads/2021-07/10/_1625886150_2259.jpg"
+                alt="IASO Bio mission — focusing on innovative biotherapies"
+                class="hero-img reveal-scale"
+                loading="lazy"
+            >
+            <div class="mint-line reveal" style="align-self:center;"></div>
+            <h2 class="reveal">Looking Forward Together</h2>
+            <div class="closing-items reveal">
+                <div class="c-item">
+                    <div class="c-icon">🔬</div>
+                    <h4>Explore</h4>
+                    <p>Clinical collaboration in Latin America</p>
+                </div>
+                <div class="c-item">
+                    <div class="c-icon">⚙️</div>
+                    <h4>Align</h4>
+                    <p>Technology transfer & manufacturing partnership</p>
+                </div>
+                <div class="c-item">
+                    <div class="c-icon">🌱</div>
+                    <h4>Collaborate</h4>
+                    <p>Joint research in cell & gene therapy</p>
+                </div>
+            </div>
+            <p class="closing-tagline reveal">"Focusing on innovative biotherapies to bring hope of cure to patients"</p>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+       SLIDE PRESENTATION CONTROLLER
+       =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.isScrolling = false;
+                this.scrollTimeout = null;
+                this.totalSlides = this.slides.length;
+
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+                this.setupWheelNav();
+
+                /* Activate first slide */
+                requestAnimationFrame(() => {
+                    this.slides[0].classList.add('visible');
+                });
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            if (idx !== -1) {
+                                this.currentSlide = idx;
+                                this.updateProgressBar();
+                                this.updateNavDots();
+                                this.updateSlideNumbers();
+                            }
+                        }
+                    });
+                }, { threshold: 0.5 });
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.target.getAttribute('contenteditable')) return;
+                    switch(e.key) {
+                        case 'ArrowDown': case 'ArrowRight': case ' ': case 'PageDown':
+                            e.preventDefault(); this.goToSlide(this.currentSlide + 1); break;
+                        case 'ArrowUp': case 'ArrowLeft': case 'PageUp':
+                            e.preventDefault(); this.goToSlide(this.currentSlide - 1); break;
+                        case 'Home': e.preventDefault(); this.goToSlide(0); break;
+                        case 'End': e.preventDefault(); this.goToSlide(this.totalSlides - 1); break;
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let startY = 0;
+                document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    const diff = startY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 50) {
+                        diff > 0 ? this.goToSlide(this.currentSlide + 1) : this.goToSlide(this.currentSlide - 1);
+                    }
+                }, { passive: true });
+            }
+
+            setupWheelNav() {
+                document.addEventListener('wheel', (e) => {
+                    if (this.isScrolling) return;
+                    this.isScrolling = true;
+                    if (e.deltaY > 30) this.goToSlide(this.currentSlide + 1);
+                    else if (e.deltaY < -30) this.goToSlide(this.currentSlide - 1);
+                    clearTimeout(this.scrollTimeout);
+                    this.scrollTimeout = setTimeout(() => { this.isScrolling = false; }, 800);
+                }, { passive: true });
+            }
+
+            setupProgressBar() {
+                this.progressBar = document.getElementById('progressBar');
+                this.updateProgressBar();
+            }
+
+            updateProgressBar() {
+                if (!this.progressBar) return;
+                this.progressBar.style.width = ((this.currentSlide + 1) / this.totalSlides * 100) + '%';
+            }
+
+            setupNavDots() {
+                this.dotsContainer = document.getElementById('navDots');
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    this.dotsContainer.appendChild(dot);
+                });
+            }
+
+            updateNavDots() {
+                if (!this.dotsContainer) return;
+                this.dotsContainer.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            updateSlideNumbers() {
+                /* The slide numbers are static in HTML, but we keep active dot sync */
+            }
+
+            goToSlide(index) {
+                if (index < 0 || index >= this.totalSlides) return;
+                this.currentSlide = index;
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                this.updateProgressBar();
+                this.updateNavDots();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { new SlidePresentation(); });
+    </script>
+</body>
+</html>

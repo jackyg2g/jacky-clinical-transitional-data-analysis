@@ -11,6 +11,8 @@ IASO Clinic Medical Clinic Management System - AI File Intelligent Processing Ex
 | implement-ai-file-processor | Implement AI File Intelligent Processing Platform | In Proposal | 2025-02-09 |
 | analyze-ct103ac004-central-lab | CT103AC004 中心实验室检测结果综合分析 | Superseded | 2026-03-09 |
 | analyze-ct103ac004-comprehensive | CT103AC004 临床试验综合数据分析（PK + 生物标志物 + PK-PD） | In Proposal | 2026-03-09 |
+| create-butantan-welcome-deck | Butantan Institute Welcome Presentation Deck | In Proposal | 2026-03-09 |
+| create-butantan-welcome-deck-v3 | Butantan Welcome Deck V3 — Full Deck with Speech & Small Talk | In Proposal | 2026-03-10 |
 
 ## Active Changes
 
@@ -55,6 +57,24 @@ IASO Clinic Medical Clinic Management System - AI File Intelligent Processing Ex
 - T-003: 中心实验室数据质量与生物标志物分析 (deps: T-001)
 - T-004: PK-PD 关联探索性分析 (deps: T-002, T-003)
 - T-005: 综合分析报告撰写 (deps: T-002, T-003, T-004)
+
+### create-butantan-welcome-deck
+
+- **proposal.md**: Requirement proposal document
+- **design.md**: Narrative arc and content selection rationale
+- **tasks.md**: Complete presentation outline, speaker notes, and improvements
+
+**Task List**:
+- T-001: Presentation Outline and Speaker Notes (6 slides, CEO voice, English)
+
+### create-butantan-welcome-deck-v3
+
+- **proposal.md**: Requirement proposal document — consolidated V3 with updated references
+- **design.md**: Narrative arc, slide structure, image strategy, welcome speech & small talk design
+- **tasks.md**: Single task for HTML presentation generation (6 slides)
+
+**Task List**:
+- T-001: Generate Butantan Welcome Deck V3 HTML Presentation (6 slides)
 
 ## Tech Stack
 
